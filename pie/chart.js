@@ -1,4 +1,4 @@
-define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
+define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
     return function(container, params) {
         var data,
             svg = d3.select('body').append('svg'),
