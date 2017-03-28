@@ -14,7 +14,13 @@ define(function() {
             }
         },
         parseData: function(str) {
-            return str.replace(/;/g, '\n').split('\n').map(function(row) { return row.split(','); });
+            return str.replace(/;/g, '\n').split('\n').map(function(row, j) {
+                return row.split(',').map(function(cell, i) {
+                    return i && j ? cell.split('+').reduce(function(sum, term) {
+                        return +term+sum;
+                    }, 0) : cell;
+                });
+            });
         }
     };
 });
