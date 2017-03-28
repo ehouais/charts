@@ -62,7 +62,7 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
                     .range([height, 0]);
 
                 yAxis
-                    .ticks(Math.min(11, height/25))
+                    .ticks(Math.min(8, height/25))
                     .tickSize(-width);
 
                 yy
