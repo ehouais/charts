@@ -57,6 +57,8 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
                 return svg._groups[0][0].getBBox();
             };
 
+        params.labels = params.labels || 0;
+        params.values = params.values || 1;
         return {
             update: function(rows) {
                 data = pie(rows.map(function(row) {
