@@ -142,9 +142,7 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
                     grouping.forEach(function(stack, i) {
                         var width = 0;
                         stack.forEach(function(col_index) {
-                            var value = (row[col_index] || '').split('+').reduce(function(sum, term) {
-                                return +term+sum;
-                            }, 0);
+                            var value = parseFloat(row[col_index]);
                             group.values.push({
                                 row: i,
                                 left: width,

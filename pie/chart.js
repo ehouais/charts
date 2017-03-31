@@ -1,4 +1,4 @@
-define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
+define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
     return function(container, params) {
         var data,
             svg = d3.select('body').append('svg'),
@@ -10,9 +10,8 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
             ticks,
             labels;
 
-        var resize = function(left, top, width, height) {
+        var resize = function(left, top, width, height, fontsize) {
                 var radius = Math.min(width, height)/2,
-                    fs = Math.max(Math.min(radius/10, 20), 11),
                     heights = [];
 
                 svg
@@ -33,12 +32,12 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
                         var angle = (d.startAngle+d.endAngle)/2-Math.PI/2,
                             cos = Math.cos(angle),
                             sin = Math.sin(angle),
-                            dr = fs/2+Math.tan(angle);
+                            dr = fontsize/2+Math.tan(angle);
                         return 'M'+(radius+2)*cos+' '+(radius+2)*sin+'l'+dr*cos+' '+dr*sin+'l'+radius*0.2*(cos > 0 ? 1 : -1)+' 0';
                     });
 
                 labels
-                    .style('font-size', fs+'px')
+                    .style('font-size', fontsize+'px')
                     .attr('text-anchor', function(d) {
                         var angle = (d.startAngle+d.endAngle)/2-Math.PI/2,
                             cos = Math.cos(angle);
@@ -49,7 +48,7 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
                         var angle = (d.startAngle+d.endAngle)/2-Math.PI/2,
                             cos = Math.cos(angle),
                             sin = Math.sin(angle),
-                            dr = fs/2+Math.tan(angle);
+                            dr = fontsize/2+Math.tan(angle);
 
                         return 'translate('+((radius+2+dr)*cos+radius*0.21*(cos > 0 ? 1 : -1))+','+(radius+2+dr)*sin+')';
                     });
@@ -57,6 +56,8 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
                 return svg._groups[0][0].getBBox();
             };
 
+        params.labels = params.labels || 0;
+        params.values = params.values || 1;
         return {
             update: function(rows) {
                 data = pie(rows.map(function(row) {

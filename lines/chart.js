@@ -1,4 +1,4 @@
-define(['d3', '../timescale', '../twopassresize'], function(d3, Timescale, TwoPassResize) {
+define(['d3', 'timescale', 'twopassresize'], function(d3, Timescale, TwoPassResize) {
     return function(container, params) {
         var svg = d3.select('body').append('svg'),
             chart = svg.append('g'),

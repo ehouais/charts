@@ -1,4 +1,4 @@
-define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
+define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
     return function(container, params) {
         var dgroups,
             slabels,
@@ -62,7 +62,7 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
                     .range([height, 0]);
 
                 yAxis
-                    .ticks(Math.min(11, height/25))
+                    .ticks(Math.min(8, height/25))
                     .tickSize(-width);
 
                 yy
@@ -134,9 +134,7 @@ define(['d3', '../twopassresize'], function(d3, TwoPassResize) {
                     grouping.forEach(function(stack, i) {
                         var height = 0;
                         stack.forEach(function(col_index) {
-                            var value = (row[col_index] || '').split('+').reduce(function(sum, term) {
-                                return +term+sum;
-                            }, 0);
+                            var value = parseFloat(row[col_index]);
                             group.values.push({
                                 col: i,
                                 height: value,
