@@ -75,7 +75,7 @@ define(['snap.svg'], function(Snap) {
 
                 //paper.attr({width: width, height: height});
 
-                top = paper.group().attr('font-family', 'gotham');
+                top = paper.group().attr('font-family', 'condensed');
 
                 var renderNode = function(node, parent, factor, depth) {
                     var group = paper.group().attr('font-size', factor*15),
