@@ -1,10 +1,3 @@
-@font-face {
-    font-family: 'condensed';
-    src: url('../gotham-narrow.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 svg, g {
     font-family: 'condensed';
 }
