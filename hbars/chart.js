@@ -111,28 +111,19 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
             };
 
         return {
-            update: function(rows) {
+            update: function(dataset) {
+                var rows = dataset.rows;
+
                 lcol = params.labels || 0;
                 nb_series = rows[0].length-1;
                 grouping = params.grouping || d3.range(nb_series).map(function(index) {
                     return [index+1];
                 });
 
-                slabels = [];
-                grouping.forEach(function(stack) {
-                    stack.forEach(function(col_index) {
-                        slabels.push(rows[0][col_index].replace(/_/g, ' '));
-                    });
+                slabels = dataset.cols.slice(1).map(function(col) {
+                    return col.label;
                 });
 
-                if (rows[0][0]) {
-                    unitl = xx.append('text')
-                        .style('text-anchor', 'start')
-                        .attr('y', 3)
-                        .text(rows[0][0]);
-                }
-
-                rows.shift();
                 nb_rows = rows.length;
 
                 // Pre-compute bar dimensions according to values and grouping
