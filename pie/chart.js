@@ -59,8 +59,8 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
         params.labels = params.labels || 0;
         params.values = params.values || 1;
         return {
-            update: function(rows) {
-                data = pie(rows.map(function(row) {
+            update: function(dataset) {
+                data = pie(dataset.rows.map(function(row) {
                     return {label: row[params.labels], value: row[params.values]};
                 }));
 

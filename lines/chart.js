@@ -66,16 +66,22 @@ define(['d3', 'timescale', 'twopassresize'], function(d3, Timescale, TwoPassResi
             };
 
         return {
-            update: function(series) {
+            update: function(dataset) {
                 var start = +Infinity,
                     end = -Infinity,
                     max = 0;
 
-                series.forEach(function(serie) {
-                    serie.values.forEach(function(pair, i) {
-                        start = Math.min(start, pair.date);
-                        end = Math.max(end, pair.date);
-                        max = Math.max(max, pair.value);
+                var series = dataset.cols.slice(1).map(function(serie) {
+                    return {label: serie.label, values: []};
+                });
+                dataset.rows.forEach(function(row) {
+                    var timestamp = new Date(row[0]);
+                    start = Math.min(start, timestamp);
+                    end = Math.max(end, timestamp);
+                    dataset.cols.slice(1).forEach(function(col, index) {
+                        var value = parseFloat(row[index+1]);
+                        series[index].values.push({date: timestamp, value: value});
+                        max = Math.max(max, value);
                     });
                 });
 
@@ -84,7 +90,7 @@ define(['d3', 'timescale', 'twopassresize'], function(d3, Timescale, TwoPassResi
                     .domain([start-tmargin, end+tmargin]);
 
                 vScale
-                    .domain([params.offset, max]);
+                    .domain([params.offset || 0, max]);
 
                 line = lines.selectAll('.line')
                     .data(series)
