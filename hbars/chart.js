@@ -67,13 +67,11 @@ define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
                     .style('font-size', fontsize+'px')
                     .selectAll('text')
                     .each(function(d, i) {
-                        var text = d3.select(this).text(null);
-                        dgroups[i].label.split('-').forEach(function(line) {
-                            text.append('tspan')
-                                .text(line)
-                                .attr('y', 0)
-                                .attr('dx', -fontsize/3);
-                        });
+                        d3.select(this).text(null)
+                            .append('tspan')
+                            .text(dgroups[i].label)
+                            .attr('y', 0)
+                            .attr('dx', -fontsize/3);
                     });
 
                 group
