@@ -1,7 +1,7 @@
 define(['d3', 'twopassresize'], function(d3, TwoPassResize) {
     return function(container, params) {
         var data,
-            svg = d3.select('body').append('svg'),
+            svg = d3.select(container).append('svg'),
             chart = svg.append('g'),
             color = d3.scaleOrdinal(d3.schemeCategory10),
             arc = d3.arc().innerRadius(0),
